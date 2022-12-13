@@ -32,7 +32,7 @@ router.get('/all', (req,res)=>{
                     foreignField:'_id',
                     as:'park'
                 }
-            }
+            }                                                                                       
 
 
         ]
@@ -51,11 +51,39 @@ router.get('/all', (req,res)=>{
 
     
 })
-
-
+// router.get('/getemp', (req,res)=>{
+    
+//     Parking.aggregate(
+//         [
+          
+//              {
+//                    $lookup:{
+//                        from:'parkingowners',
+//                        localField:'idO',
+//                        foreignField:'_id',
+//                        as:'owner'
+//                    }
+//                }
+  
+  
+//            ]
+//        )
+//        .then(
+//            (result)=>{
+             
+//                res.send(result);
+//            }
+//        )
+//        .catch(
+//            (err)=>{
+//                res.send(err);
+//            }
+//        )
+  
+// })
 router.get('/getById/:id', (req, res)=>{
     let myId = req.params.id;
-
+    
     Emplacement.findById({ _id: myId})
     .then(
         (result)=>{
@@ -68,6 +96,23 @@ router.get('/getById/:id', (req, res)=>{
         }
     )
 });
+
+// router.get('/emplacementParking/:id', (req,res)=>{
+//     let myId = req.params.idP;
+//     const objId = new ObjectId("");
+
+//     Emplacement.find({idP:{_id:objId}})
+//     .then(
+//         (result)=>{
+//             res.send(result)
+//         }
+//     )
+//     .catch(
+//         (err)=>{
+//             res.send(err);
+//         }
+//     )
+// })
 
 
 router.put('/update/:id', (req,res)=>{

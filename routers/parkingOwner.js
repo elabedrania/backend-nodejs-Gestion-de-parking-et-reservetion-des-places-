@@ -93,6 +93,29 @@ router.post('/add', (req, res)=>{
     ) 
 });
 
+router.post('/addPark/:id', (req,res)=>{
+    let owner = req.params.id;
+    data = req.body;
+    ParkingOwner.findById({ _id : owner})
+
+        .then(
+            (result)=>{
+                let park=[]
+               park=result.parkings
+               park.push(data)
+               result.parkings=park
+               result.save()
+               res.send(result)
+            }
+        )
+        .catch(
+            (err)=>{
+                res.send(err);
+            }
+        )
+
+})
+
 
 router.get('/all', (req,res)=>{
     ParkingOwner.find()

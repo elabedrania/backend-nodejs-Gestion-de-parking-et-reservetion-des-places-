@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const Emplacement = require('./emplacement');
 const objectId = require('mongodb').ObjectId;
+
 const Parking = mongoose.model('Parking', {
     name : String,
     address: String,
@@ -7,7 +9,8 @@ const Parking = mongoose.model('Parking', {
         type: String,
         default : 50
     },
-    idO : objectId
+    idO : mongoose.Schema.ObjectId,
+    //place:[{type: mongoose.Schema.ObjectId}]
 })
 
 

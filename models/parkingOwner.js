@@ -5,7 +5,9 @@ const ParkingOwner = mongoose.model('ParkingOwner', {
     email: String,
     pwd:String,
     
-    IsAdmin: Boolean
+    IsAdmin: Boolean,
+    parkings:[{}]
+
 
 })
 

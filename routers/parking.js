@@ -22,6 +22,22 @@ router.post('/add', (req,res)=>{
             }
         )
 })
+// router.post('/addById/:id', (req,res)=>{
+//     let data = req.params.id;
+//     let dep = new Parking(data);
+//     dep.save()
+
+//     .then(
+//         (result)=>{
+//             res.send(result);
+//         }
+//     )
+//     .catch(
+//         (err)=>{
+//             res.send(err);
+//         }
+//     )
+// })
 
 // router.get('/all', (req,res)=>{
     
@@ -37,37 +53,80 @@ router.post('/add', (req,res)=>{
 //             }
 //         )
 // })
-router.get('/all', (req,res)=>{
+ router.get('/all', (req,res)=>{
 
-   Parking.aggregate(
-      [
+    Parking.aggregate(
+       [
         
-           {
-                 $lookup:{
-                     from:'parkingowners',
-                     localField:'idO',
-                     foreignField:'_id',
-                     as:'owner'
-                 }
-             }
+            {
+                  $lookup:{
+                      from:'parkingowners',
+                      localField:'idO',
+                      foreignField:'_id',
+                      as:'owner'
+                  }
+                 
+              }
+             
 
 
-         ]
+          ]
+    //       [
+    //         {
+    //             $lookup:{
+    //                 from: 'emplacements',
+    //                 localField:'place',
+    //                 foreignField:'_id',
+    //                 as: 'emp'
+    //               }
+    //           }
+    //       ]
      )
-     .then(
-         (result)=>{
+      .then(
+          (result)=>{
            
-             res.send(result);
-         }
-     )
-     .catch(
-         (err)=>{
-             res.send(err);
-         }
-     )
+              res.send(result);
+          }
+      )
+      .catch(
+          (err)=>{
+              res.send(err);
+          }
+      )
 
     
- })
+  })
+router.get('/all', (req,res)=>{
+
+    Parking.aggregate(
+        [
+        
+            {
+                $lookup:{
+                    from:'emplacements',
+                    localField:'idE',
+                    foreignField:'_id',
+                    as:'emp'
+                }
+            }                                                                                       
+
+
+        ]
+    )
+    .then(
+        (result)=>{
+           
+            res.send(result);
+        }
+    )
+    .catch(
+        (err)=>{
+            res.send(err);
+        }
+    )
+
+    
+})
 
 
 
@@ -86,6 +145,8 @@ router.get('/getById/:id', (req, res)=>{
         }
     )
 });
+
+
 
 router.put('/update/:id', (req,res)=>{
     myId = req.params.id;
@@ -122,9 +183,7 @@ router.delete('/delete/:id', (req,res)=>{
     )
 })
 
-router.get('/count', (req, res)=>{
 
-})
 
 
 module.exports = router;
