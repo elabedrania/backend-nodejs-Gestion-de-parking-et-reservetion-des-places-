@@ -8,7 +8,9 @@ const Emplacement = mongoose.model('Emplacement', {
         type: Boolean,
         default: false
     },
-    idP : objectId
+    idP : objectId,
+    parking:[{ type: mongoose.Schema.ObjectId,
+        ref: "Parking"}]
 })
 
 module.exports = Emplacement;

@@ -9,8 +9,12 @@ const Parking = mongoose.model('Parking', {
         type: String,
         default : 50
     },
-    idO : mongoose.Schema.ObjectId,
-    //place:[{type: mongoose.Schema.ObjectId}]
+    idO :{type: mongoose.Schema.ObjectId,
+    ref: 'ParkingOwner'},
+    place:[{ 
+        type: mongoose.Schema.ObjectId,
+        ref: "Emplacement"
+    }]
 })
 
 

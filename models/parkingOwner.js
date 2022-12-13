@@ -6,7 +6,8 @@ const ParkingOwner = mongoose.model('ParkingOwner', {
     pwd:String,
     
     IsAdmin: Boolean,
-    parkings:[{}]
+    parkings:[{type: mongoose.Schema.Types.ObjectId,
+    ref: 'Parking'}]
 
 
 })

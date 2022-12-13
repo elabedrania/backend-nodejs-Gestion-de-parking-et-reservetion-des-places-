@@ -22,6 +22,26 @@ router.post('/add', (req,res)=>{
             }
         )
 })
+
+router.get('/all', async(req,res)=>{
+    await Parking.find()
+    .populate('idO')
+    .populate('place')
+    .exec()
+
+    .then(
+                     (result)=>{
+                         res.send(result);
+                 }
+             )
+                 .catch(
+                     (err)=>{
+                         res.send(err);
+                     }
+                 )
+    
+})
+
 // router.post('/addById/:id', (req,res)=>{
 //     let data = req.params.id;
 //     let dep = new Parking(data);
@@ -53,49 +73,47 @@ router.post('/add', (req,res)=>{
 //             }
 //         )
 // })
- router.get('/all', (req,res)=>{
-
-    Parking.aggregate(
-       [
+//  router.get('/all', async(req,res)=>{
+//     let parking = await
+//     // Parking.aggregate(
+//     //    [
         
-            {
-                  $lookup:{
-                      from:'parkingowners',
-                      localField:'idO',
-                      foreignField:'_id',
-                      as:'owner'
-                  }
+//     //         {
+//     //               $lookup:{
+//     //                   from:'parkingowners',
+//     //                   localField:'idO',
+//     //                   foreignField:'_id',
+//     //                   as:'owner'
+//     //               },
+                  
+//     //                 $unwind: {
+//     //                    path:"place",
+//     //                    preserveNullAndEmptyArrays:true 
+//     //                 }
                  
-              }
+//     //           }
              
 
 
-          ]
-    //       [
-    //         {
-    //             $lookup:{
-    //                 from: 'emplacements',
-    //                 localField:'place',
-    //                 foreignField:'_id',
-    //                 as: 'emp'
-    //               }
-    //           }
-    //       ]
-     )
-      .then(
-          (result)=>{
-           
-              res.send(result);
-          }
-      )
-      .catch(
-          (err)=>{
-              res.send(err);
-          }
-      )
+//     //       ]
+   
+//     //  )
+//      await Parking.populate(parking, {path: 'place'})
+//       .then(
+
+//           (result)=>{
+              
+//               res.send(result);
+//           }
+//       )
+//       .catch(
+//           (err)=>{
+//               res.send(err);
+//           }
+//       )
 
     
-  })
+//   })
 router.get('/all', (req,res)=>{
 
     Parking.aggregate(
