@@ -23,22 +23,16 @@ router.post('/add', (req,res)=>{
         )
 })
 
-router.get('/all', async(req,res)=>{
-    await Parking.find()
-    .populate('idO')
-    .populate('place')
-    .exec()
-
-    .then(
-                     (result)=>{
-                         res.send(result);
-                 }
-             )
-                 .catch(
-                     (err)=>{
-                         res.send(err);
-                     }
-                 )
+router.get('/all', (req,res)=>{
+    Parking.find()
+    // .populate('idO')
+    .populate(['place','idO'])
+    .exec((err , result) => {
+        if (err)  return res.status(400).json(err);
+        else {
+            return res.status(200).json(result)
+        }
+    })
     
 })
 
@@ -114,37 +108,37 @@ router.get('/all', async(req,res)=>{
 
     
 //   })
-router.get('/all', (req,res)=>{
+// router.get('/all', (req,res)=>{
 
-    Parking.aggregate(
-        [
+//     Parking.aggregate(
+//         [
         
-            {
-                $lookup:{
-                    from:'emplacements',
-                    localField:'idE',
-                    foreignField:'_id',
-                    as:'emp'
-                }
-            }                                                                                       
+//             {
+//                 $lookup:{
+//                     from:'emplacements',
+//                     localField:'idE',
+//                     foreignField:'_id',
+//                     as:'emp'
+//                 }
+//             }                                                                                       
 
 
-        ]
-    )
-    .then(
-        (result)=>{
+//         ]
+//     )
+//     .then(
+//         (result)=>{
            
-            res.send(result);
-        }
-    )
-    .catch(
-        (err)=>{
-            res.send(err);
-        }
-    )
+//             res.send(result);
+//         }
+//     )
+//     .catch(
+//         (err)=>{
+//             res.send(err);
+//         }
+//     )
 
     
-})
+// })
 
 
 
